@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import com.mufiid.dicodingbajp.ui.home.HomeActivity
 
 class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -13,7 +14,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
         Handler(Looper.myLooper()!!).postDelayed({
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, HomeActivity::class.java))
             finish()
         }, 2000)
     }
