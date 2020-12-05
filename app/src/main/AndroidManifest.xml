@@ -16,7 +16,6 @@
         <activity
             android:name=".ui.detail.DetailCourseActivity"
             android:label="@string/title_activity_detail_course"
-            android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".ui.home.HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
