@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -34,6 +35,8 @@ class DetailCourseActivity : AppCompatActivity() {
         setSupportActionBar(activityDetailCourseBinding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailCourseViewModel::class.java]
+
 
         val adapter = DetailCourseAdapter()
 
@@ -41,14 +44,11 @@ class DetailCourseActivity : AppCompatActivity() {
         if(extras != null) {
             val courseId = extras.getString(EXTRA_COURSE)
             if(courseId != null) {
-                val modules = DataDummy.generateDummyModule(courseId)
+                viewModel.setSelectedCourse(courseId)
+                val modules = viewModel.getModules()
                 adapter.setModules(modules)
+                populateCourse(viewModel.getCourse())
 
-                for(course in DataDummy.generateDummyCourses()) {
-                    if(course.courseId == courseId) {
-                        populateCourse(course)
-                    }
-                }
             }
         }
 

@@ -6,12 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mufiid.dicodingbajp.data.ModuleEntity
 import com.mufiid.dicodingbajp.databinding.FragmentModuleListBinding
 import com.mufiid.dicodingbajp.ui.reader.CourseReaderActivity
 import com.mufiid.dicodingbajp.ui.reader.CourseReaderCallback
+import com.mufiid.dicodingbajp.ui.reader.CourseReaderViewModel
 import com.mufiid.dicodingbajp.utils.DataDummy
 
 
@@ -20,6 +22,7 @@ class ModuleListFragment : Fragment(), MyAdapterClickListener {
     private lateinit var fragmentModuleListBinding: FragmentModuleListBinding
     private lateinit var adapter: ModuleListAdapter
     private lateinit var courseReaderCallback: CourseReaderCallback
+    private lateinit var viewModel: CourseReaderViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,10 +32,13 @@ class ModuleListFragment : Fragment(), MyAdapterClickListener {
         return fragmentModuleListBinding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())[CourseReaderViewModel::class.java]
         adapter = ModuleListAdapter(this)
-        populateRecyclerView(DataDummy.generateDummyModule("a14"))
+        populateRecyclerView(viewModel.getModules())
     }
 
     private fun populateRecyclerView(modules: List<ModuleEntity>) {
@@ -59,5 +65,6 @@ class ModuleListFragment : Fragment(), MyAdapterClickListener {
 
     override fun onItemClicked(position: Int, moduleId: String) {
         courseReaderCallback.moveTo(position, moduleId)
+        viewModel.setSelectedModule(moduleId)
     }
 }

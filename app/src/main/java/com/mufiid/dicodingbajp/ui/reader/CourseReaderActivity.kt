@@ -3,6 +3,7 @@ package com.mufiid.dicodingbajp.ui.reader
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.mufiid.dicodingbajp.R
 import com.mufiid.dicodingbajp.ui.reader.content.ModuleContentFragment
 import com.mufiid.dicodingbajp.ui.reader.list.ModuleListFragment
@@ -17,12 +18,13 @@ class CourseReaderActivity : AppCompatActivity(), CourseReaderCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_course_reader)
 
-        supportActionBar?.title = "Detail"
+        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[CourseReaderViewModel::class.java]
 
         val bundle = intent.extras
         if (bundle != null) {
             val courseId = bundle.getString(EXTRA_COURSE_ID)
             if (courseId != null) {
+                viewModel.setSelectedCourse(courseId)
                 populateFragment()
             }
         }
