@@ -7,26 +7,36 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mufiid.dicodingbajp.R
+import com.mufiid.dicodingbajp.databinding.FragmentAcademyBinding
+import com.mufiid.dicodingbajp.utils.DataDummy
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
 class AcademyFragment : Fragment() {
+
+    private lateinit var fragmentAcademyBinding: FragmentAcademyBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_academy, container, false)
+        fragmentAcademyBinding = FragmentAcademyBinding.inflate(layoutInflater, container, false)
+        return fragmentAcademyBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.button_first).setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        if(activity != null) {
+            val courses = DataDummy.generateDummyCourses()
+            val academyAdapter = AcademyAdapter()
+            academyAdapter.setCourses(courses)
+
+            with(fragmentAcademyBinding.rvAcademy) {
+                layoutManager = LinearLayoutManager(context)
+                setHasFixedSize(true)
+                adapter = academyAdapter
+            }
         }
     }
 }
