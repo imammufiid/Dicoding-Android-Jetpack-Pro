@@ -6,14 +6,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.mufiid.dicodingbajp.R
-import com.mufiid.dicodingbajp.ui.academy.AcademyFragment
-import com.mufiid.dicodingbajp.ui.bookmark.BookmarkFragment
+import com.mufiid.dicodingbajp.ui.movie.MovieFragment
+import com.mufiid.dicodingbajp.ui.tvshow.TvShowFragment
 
 class SectionPagerAdapter(private val context: Context, fm: FragmentManager): FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     companion object {
         @StringRes
-        private val TAB_TITLE = intArrayOf(R.string.home, R.string.bookmark)
+        private val TAB_TITLE = intArrayOf(R.string.movie, R.string.tv_show)
         private val TAB_TITTLE_SIZE = TAB_TITLE.size
     }
 
@@ -21,8 +21,8 @@ class SectionPagerAdapter(private val context: Context, fm: FragmentManager): Fr
 
     override fun getItem(position: Int): Fragment =
         when(position) {
-            0 -> AcademyFragment()
-            1 ->BookmarkFragment()
+            0 -> MovieFragment()
+            1 -> TvShowFragment()
             else -> Fragment()
         }
 

@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.mufiid.dicodingbajp.ui.academy.AcademyFragment"
+        android:name="com.mufiid.dicodingbajp.ui.movie.MovieFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_academy">
+        tools:layout="@layout/fragment_movie">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
@@ -17,9 +17,9 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.mufiid.dicodingbajp.ui.bookmark.BookmarkFragment"
+        android:name="com.mufiid.dicodingbajp.ui.tvshow.TvShowFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_bookmark">
+        tools:layout="@layout/fragment_tv_show">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"

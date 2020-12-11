@@ -13,7 +13,8 @@ import org.junit.Before
 import org.junit.Test
 
 class HomeActivityTest {
-    private val dummyCourse = DataDummy.generateDummyCourses()
+    private val dummyMovie = DataDummy.generateDummyMovies()
+    private val dummyTvShow = DataDummy.generateDummyTvShow()
 
     @Before
     fun setUp() {
@@ -21,39 +22,24 @@ class HomeActivityTest {
     }
 
     @Test
-    fun loadCourse() {
-        onView(withId(R.id.rv_academy)).check(matches(isDisplayed()))
-        onView(withId(R.id.rv_academy)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dummyCourse.size))
+    fun loadMovies() {
+        onView(withId(R.id.rv_movie)).check(matches(isDisplayed()))
+        onView(withId(R.id.rv_movie)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dummyMovie.size))
     }
 
     @Test
     fun loadDetailCourse() {
-        onView(withId(R.id.rv_academy)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+        onView(withId(R.id.rv_movie)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
         onView(withId(R.id.text_title)).check(matches(isDisplayed()))
-        onView(withId(R.id.text_title)).check(matches(withText(dummyCourse[0].title)))
+        onView(withId(R.id.text_title)).check(matches(withText(dummyMovie[0].title)))
         onView(withId(R.id.text_date)).check(matches(isDisplayed()))
-        onView(withId(R.id.text_date)).check(matches(withText("Deadline ${dummyCourse[0].deadline}")))
-    }
-
-    @Test
-    fun loadModule() {
-        onView(withId(R.id.rv_academy)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
-        onView(withId(R.id.btn_start)).perform(click())
-        onView(withId(R.id.rv_module)).check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun loadDetailModule() {
-        onView(withId(R.id.rv_academy)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
-        onView(withId(R.id.btn_start)).perform(click())
-        onView(withId(R.id.rv_module)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
-        onView(withId(R.id.web_view)).check(matches(isDisplayed()))
+        onView(withId(R.id.text_date)).check(matches(withText("Tanggal Rilis : ${dummyMovie[0].releaseDate}")))
     }
 
     @Test
     fun loadBookmarks() {
-        onView(withText("Bookmark")).perform(click())
-        onView(withId(R.id.rv_bookmark)).check(matches(isDisplayed()))
-        onView(withId(R.id.rv_bookmark)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dummyCourse.size))
+        onView(withText("TV Show")).perform(click())
+        onView(withId(R.id.rv_tv_show)).check(matches(isDisplayed()))
+        onView(withId(R.id.rv_tv_show)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dummyTvShow.size))
     }
 }
