@@ -1,10 +1,10 @@
-package com.mufiid.dicodingbajp.ui.detail
+package com.mufiid.dicodingbajp.ui.detail_movie
 
 import androidx.lifecycle.ViewModel
 import com.mufiid.dicodingbajp.data.MovieEntity
 import com.mufiid.dicodingbajp.utils.DataDummy
 
-class DetailViewModel : ViewModel() {
+class DetailMovieViewModel : ViewModel() {
     private lateinit var movieId: String
 
     fun setSelectedMovie(movieId: String) {

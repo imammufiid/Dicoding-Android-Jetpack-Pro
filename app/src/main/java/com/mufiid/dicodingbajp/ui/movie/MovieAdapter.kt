@@ -8,18 +8,19 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.mufiid.dicodingbajp.R
 import com.mufiid.dicodingbajp.data.MovieEntity
+import com.mufiid.dicodingbajp.data.TvShowEntity
 import com.mufiid.dicodingbajp.databinding.ItemsMovieBinding
-import com.mufiid.dicodingbajp.ui.detail.DetailActivity
+import com.mufiid.dicodingbajp.ui.detail_movie.DetailMovieActivity
 
-class MovieAdapter: RecyclerView.Adapter<MovieAdapter.CourseViewHolder>() {
-    class CourseViewHolder(private val binding: ItemsMovieBinding): RecyclerView.ViewHolder(binding.root) {
+class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+    class MovieViewHolder(private val binding: ItemsMovieBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: MovieEntity) {
             with(binding) {
                 tvItemTitle.text = movie.title
                 tvItemDate.text = itemView.resources.getString(R.string.deadline_date, movie.releaseDate)
                 itemView.setOnClickListener {
-                    val intent = Intent(itemView.context, DetailActivity::class.java)
-                    intent.putExtra(DetailActivity.EXTRA_MOVIE, movie.movieId)
+                    val intent = Intent(itemView.context, DetailMovieActivity::class.java)
+                    intent.putExtra(DetailMovieActivity.EXTRA_MOVIE, movie.movieId)
                     itemView.context.startActivity(intent)
                 }
                 Glide.with(itemView.context)
@@ -31,26 +32,26 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.CourseViewHolder>() {
         }
     }
 
-    private var listCourse = ArrayList<MovieEntity>()
+    private var listMovie = ArrayList<MovieEntity>()
 
-    fun setCourses(movie: List<MovieEntity>?) {
+    fun setMovie(movie: List<MovieEntity>?) {
         if(movie == null) return
-        this.listCourse.clear()
-        this.listCourse.addAll(movie)
+        this.listMovie.clear()
+        this.listMovie.addAll(movie)
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): CourseViewHolder {
-        val itemsAcademyBinding = ItemsMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return CourseViewHolder(itemsAcademyBinding)
+    ): MovieViewHolder {
+        val itemsMovieBinding = ItemsMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MovieViewHolder(itemsMovieBinding)
     }
 
-    override fun onBindViewHolder(holder: MovieAdapter.CourseViewHolder, position: Int) {
-        val course = listCourse[position]
-        holder.bind(course)
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+        val movie = listMovie[position]
+        holder.bind(movie)
     }
 
-    override fun getItemCount(): Int = listCourse.size
+    override fun getItemCount(): Int = listMovie.size
 }

@@ -12,24 +12,34 @@ import com.mufiid.dicodingbajp.utils.DataDummy
 import org.junit.Before
 import org.junit.Test
 
+
 class HomeActivityTest {
     private val dummyMovie = DataDummy.generateDummyMovies()
     private val dummyTvShow = DataDummy.generateDummyTvShow()
 
     @Before
-    fun setUp() {
+    fun setup() {
         ActivityScenario.launch(HomeActivity::class.java)
     }
 
     @Test
     fun loadMovies() {
         onView(withId(R.id.rv_movie)).check(matches(isDisplayed()))
-        onView(withId(R.id.rv_movie)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dummyMovie.size))
+        onView(withId(R.id.rv_movie)).perform(
+            RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
+                dummyMovie.size
+            )
+        )
     }
 
     @Test
-    fun loadDetailCourse() {
-        onView(withId(R.id.rv_movie)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+    fun loadDetailMovie() {
+        onView(withId(R.id.rv_movie)).perform(
+            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                0,
+                click()
+            )
+        )
         onView(withId(R.id.text_title)).check(matches(isDisplayed()))
         onView(withId(R.id.text_title)).check(matches(withText(dummyMovie[0].title)))
         onView(withId(R.id.text_date)).check(matches(isDisplayed()))
@@ -37,9 +47,29 @@ class HomeActivityTest {
     }
 
     @Test
-    fun loadBookmarks() {
+    fun loadDetailTvShow() {
         onView(withText("TV Show")).perform(click())
         onView(withId(R.id.rv_tv_show)).check(matches(isDisplayed()))
-        onView(withId(R.id.rv_tv_show)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dummyTvShow.size))
+        onView(withId(R.id.rv_tv_show)).perform(
+            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                0,
+                click()
+            )
+        )
+        onView(withId(R.id.text_title)).check(matches(isDisplayed()))
+        onView(withId(R.id.text_title)).check(matches(withText(dummyTvShow[0].title)))
+        onView(withId(R.id.text_date)).check(matches(isDisplayed()))
+        onView(withId(R.id.text_date)).check(matches(withText("Tanggal Rilis : ${dummyTvShow[0].releaseDate}")))
+    }
+
+    @Test
+    fun loadTvShow() {
+        onView(withText("TV Show")).perform(click())
+        onView(withId(R.id.rv_tv_show)).check(matches(isDisplayed()))
+        onView(withId(R.id.rv_tv_show)).perform(
+            RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
+                dummyTvShow.size
+            )
+        )
     }
 }

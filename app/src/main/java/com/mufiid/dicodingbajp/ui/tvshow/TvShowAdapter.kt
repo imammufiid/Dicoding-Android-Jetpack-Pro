@@ -9,7 +9,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.mufiid.dicodingbajp.R
 import com.mufiid.dicodingbajp.data.TvShowEntity
 import com.mufiid.dicodingbajp.databinding.ItemsTvShowBinding
-import com.mufiid.dicodingbajp.ui.detail.DetailActivity
+import com.mufiid.dicodingbajp.ui.detail_tv_show.DetailTvShowActivity
 
 class TvShowAdapter(private val callback: TvShowFragmentCallback): RecyclerView.Adapter<TvShowAdapter.CourseViewHolder>() {
     inner class CourseViewHolder(private val binding: ItemsTvShowBinding): RecyclerView.ViewHolder(binding.root) {
@@ -17,12 +17,12 @@ class TvShowAdapter(private val callback: TvShowFragmentCallback): RecyclerView.
             with(binding) {
                 tvItemTitle.text = tvShow.title
                 tvItemDate.text = itemView.resources.getString(R.string.deadline_date, tvShow.releaseDate)
-//                itemView.setOnClickListener {
-//                    val intent = Intent(itemView.context, DetailActivity::class.java).apply {
-//                        putExtra(DetailActivity.EXTRA_COURSE, tvShow.tvShowId)
-//                    }
-//                    itemView.context.startActivity(intent)
-//                }
+                itemView.setOnClickListener {
+                    val intent = Intent(itemView.context, DetailTvShowActivity::class.java).apply {
+                        putExtra(DetailTvShowActivity.EXTRA_TV_SHOW, tvShow.tvShowId)
+                    }
+                    itemView.context.startActivity(intent)
+                }
                 imgShare.setOnClickListener { callback.onShareClick(tvShow) }
                 Glide.with(itemView.context)
                     .load(tvShow.imagePath)

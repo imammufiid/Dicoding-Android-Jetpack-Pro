@@ -1,4 +1,4 @@
-package com.mufiid.dicodingbajp.ui.detail
+package com.mufiid.dicodingbajp.ui.detail_movie
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -8,10 +8,11 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.mufiid.dicodingbajp.R
 import com.mufiid.dicodingbajp.data.MovieEntity
-import com.mufiid.dicodingbajp.databinding.ActivityDetailBinding
+import com.mufiid.dicodingbajp.data.TvShowEntity
+import com.mufiid.dicodingbajp.databinding.ActivityDetailMovieBinding
 import com.mufiid.dicodingbajp.databinding.ContentDetailBinding
 
-class DetailActivity : AppCompatActivity() {
+class DetailMovieActivity : AppCompatActivity() {
 
     private lateinit var detailContentBinding: ContentDetailBinding
 
@@ -21,14 +22,14 @@ class DetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val activityDetailCourseBinding = ActivityDetailBinding.inflate(layoutInflater)
+        val activityDetailCourseBinding = ActivityDetailMovieBinding.inflate(layoutInflater)
         detailContentBinding = activityDetailCourseBinding.detailContent
         setContentView(activityDetailCourseBinding.root)
 
         setSupportActionBar(activityDetailCourseBinding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailViewModel::class.java]
+        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailMovieViewModel::class.java]
 
 
         val extras = intent.extras
@@ -36,14 +37,14 @@ class DetailActivity : AppCompatActivity() {
             val movieId = extras.getString(EXTRA_MOVIE)
             if(movieId != null) {
                 viewModel.setSelectedMovie(movieId)
-                populateCourse(viewModel.getMovie())
+                populateMovie(viewModel.getMovie())
 
             }
         }
 
     }
 
-    private fun populateCourse(movieEntity: MovieEntity) {
+    private fun populateMovie(movieEntity: MovieEntity) {
         detailContentBinding.textTitle.text = movieEntity.title
         detailContentBinding.textDescription.text = movieEntity.description
         detailContentBinding.textDate.text = resources.getString(R.string.deadline_date, movieEntity.releaseDate)

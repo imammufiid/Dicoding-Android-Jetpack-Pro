@@ -11,14 +11,14 @@ import com.mufiid.dicodingbajp.databinding.FragmentMovieBinding
 
 class MovieFragment : Fragment() {
 
-    private lateinit var fragmentAcademyBinding: FragmentMovieBinding
+    private lateinit var fragmentMovieBinding: FragmentMovieBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        fragmentAcademyBinding = FragmentMovieBinding.inflate(layoutInflater, container, false)
-        return fragmentAcademyBinding.root
+        fragmentMovieBinding = FragmentMovieBinding.inflate(layoutInflater, container, false)
+        return fragmentMovieBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -29,9 +29,9 @@ class MovieFragment : Fragment() {
             val movie = viewModel.getMovies()
 
             val movieAdapter = MovieAdapter()
-            movieAdapter.setCourses(movie)
+            movieAdapter.setMovie(movie)
 
-            with(fragmentAcademyBinding.rvMovie) {
+            with(fragmentMovieBinding.rvMovie) {
                 layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)
                 adapter = movieAdapter
