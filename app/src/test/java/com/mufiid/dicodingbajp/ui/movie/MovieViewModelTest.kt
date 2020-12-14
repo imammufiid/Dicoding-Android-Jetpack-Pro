@@ -15,9 +15,9 @@ class MovieViewModelTest {
     }
 
     @Test
-    fun getCourse() {
-        val courseEntities = viewModel.getMovies()
-        assertNotNull(courseEntities)
-        assertEquals(10, courseEntities.size)
+    fun getMovie() {
+        val movieEntities = viewModel.getMovies()
+        assertNotNull(movieEntities)
+        assertEquals(10, movieEntities.size)
     }
 }
