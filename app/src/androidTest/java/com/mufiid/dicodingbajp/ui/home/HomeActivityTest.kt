@@ -7,9 +7,11 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.rule.ActivityTestRule
 import com.mufiid.dicodingbajp.R
 import com.mufiid.dicodingbajp.utils.DataDummy
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 
 
@@ -17,10 +19,10 @@ class HomeActivityTest {
     private val dummyMovie = DataDummy.generateDummyMovies()
     private val dummyTvShow = DataDummy.generateDummyTvShow()
 
-    @Before
-    fun setup() {
-        ActivityScenario.launch(HomeActivity::class.java)
-    }
+    @Rule
+    @JvmField
+    val activityRule = ActivityTestRule(HomeActivity::class.java)
+
 
     @Test
     fun loadMovies() {
@@ -47,6 +49,17 @@ class HomeActivityTest {
     }
 
     @Test
+    fun loadTvShow() {
+        onView(withText("TV Show")).perform(click())
+        onView(withId(R.id.rv_tv_show)).check(matches(isDisplayed()))
+        onView(withId(R.id.rv_tv_show)).perform(
+            RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
+                dummyTvShow.size
+            )
+        )
+    }
+
+    @Test
     fun loadDetailTvShow() {
         onView(withText("TV Show")).perform(click())
         onView(withId(R.id.rv_tv_show)).check(matches(isDisplayed()))
@@ -60,16 +73,5 @@ class HomeActivityTest {
         onView(withId(R.id.text_title)).check(matches(withText(dummyTvShow[0].title)))
         onView(withId(R.id.text_date)).check(matches(isDisplayed()))
         onView(withId(R.id.text_date)).check(matches(withText("Tanggal Rilis : ${dummyTvShow[0].releaseDate}")))
-    }
-
-    @Test
-    fun loadTvShow() {
-        onView(withText("TV Show")).perform(click())
-        onView(withId(R.id.rv_tv_show)).check(matches(isDisplayed()))
-        onView(withId(R.id.rv_tv_show)).perform(
-            RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
-                dummyTvShow.size
-            )
-        )
     }
 }
