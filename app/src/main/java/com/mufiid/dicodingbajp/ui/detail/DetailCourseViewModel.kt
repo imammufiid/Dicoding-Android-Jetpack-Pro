@@ -3,25 +3,17 @@ package com.mufiid.dicodingbajp.ui.detail
 import androidx.lifecycle.ViewModel
 import com.mufiid.dicodingbajp.data.CourseEntity
 import com.mufiid.dicodingbajp.data.ModuleEntity
+import com.mufiid.dicodingbajp.data.source.AcademyRepository
 import com.mufiid.dicodingbajp.utils.DataDummy
 
-class DetailCourseViewModel : ViewModel() {
+class DetailCourseViewModel(private val academyRepository: AcademyRepository) : ViewModel() {
     private lateinit var courseId: String
 
     fun setSelectedCourse(courseId: String) {
         this.courseId = courseId
     }
 
-    fun getCourse(): CourseEntity {
-        lateinit var course: CourseEntity
-        val coursesEntities = DataDummy.generateDummyCourses()
-        for (courseEntity in coursesEntities) {
-            if (courseEntity.courseId == courseId) {
-                course = courseEntity
-            }
-        }
-        return course
-    }
+    fun getCourse(): CourseEntity = academyRepository.getCourseWithModules(courseId)
 
-    fun getModules(): List<ModuleEntity> = DataDummy.generateDummyModule(courseId)
+    fun getModules(): List<ModuleEntity> = academyRepository.getAllModulesByCourse(courseId)
 }
