@@ -17,6 +17,7 @@ import com.mufiid.dicodingbajp.databinding.ActivityDetailCourseBinding
 import com.mufiid.dicodingbajp.databinding.ContentDetailCourseBinding
 import com.mufiid.dicodingbajp.ui.reader.CourseReaderActivity
 import com.mufiid.dicodingbajp.utils.DataDummy
+import com.mufiid.dicodingbajp.viewmodel.ViewModelFactory
 
 class DetailCourseActivity : AppCompatActivity() {
 
@@ -35,7 +36,8 @@ class DetailCourseActivity : AppCompatActivity() {
         setSupportActionBar(activityDetailCourseBinding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailCourseViewModel::class.java]
+        val factory = ViewModelFactory.getInstance(this)
+        val viewModel = ViewModelProvider(this, factory)[DetailCourseViewModel::class.java]
 
 
         val adapter = DetailCourseAdapter()

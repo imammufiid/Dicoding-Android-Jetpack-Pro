@@ -14,6 +14,7 @@ import com.mufiid.dicodingbajp.R
 import com.mufiid.dicodingbajp.data.CourseEntity
 import com.mufiid.dicodingbajp.databinding.FragmentBookmarkBinding
 import com.mufiid.dicodingbajp.utils.DataDummy
+import com.mufiid.dicodingbajp.viewmodel.ViewModelFactory
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -34,7 +35,8 @@ class BookmarkFragment : Fragment(), BookmarkFragmentCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if(activity != null) {
-            val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[BookmarkViewModel::class.java]
+            val factory = ViewModelFactory.getInstance(requireActivity())
+            val viewModel = ViewModelProvider(this, factory)[BookmarkViewModel::class.java]
 
             val courses = viewModel.getBookmark()
             val adapter = BookmarkAdapter(this)

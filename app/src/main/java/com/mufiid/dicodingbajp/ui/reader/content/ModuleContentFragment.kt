@@ -11,6 +11,7 @@ import com.mufiid.dicodingbajp.data.ContentEntity
 import com.mufiid.dicodingbajp.data.ModuleEntity
 import com.mufiid.dicodingbajp.databinding.FragmentModuleContentBinding
 import com.mufiid.dicodingbajp.ui.reader.CourseReaderViewModel
+import com.mufiid.dicodingbajp.viewmodel.ViewModelFactory
 
 class ModuleContentFragment : Fragment() {
     companion object {
@@ -32,7 +33,8 @@ class ModuleContentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if(activity != null) {
-            val viewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())[CourseReaderViewModel::class.java]
+            val factory = ViewModelFactory.getInstance(requireActivity())
+            val viewModel = ViewModelProvider(requireActivity(), factory)[CourseReaderViewModel::class.java]
             val module = viewModel.getSelectedModule()
             populateWebView(module)
         }

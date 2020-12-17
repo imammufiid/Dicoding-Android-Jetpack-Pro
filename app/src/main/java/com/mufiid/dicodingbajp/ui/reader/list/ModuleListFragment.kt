@@ -15,6 +15,7 @@ import com.mufiid.dicodingbajp.ui.reader.CourseReaderActivity
 import com.mufiid.dicodingbajp.ui.reader.CourseReaderCallback
 import com.mufiid.dicodingbajp.ui.reader.CourseReaderViewModel
 import com.mufiid.dicodingbajp.utils.DataDummy
+import com.mufiid.dicodingbajp.viewmodel.ViewModelFactory
 
 
 class ModuleListFragment : Fragment(), MyAdapterClickListener {
@@ -36,7 +37,8 @@ class ModuleListFragment : Fragment(), MyAdapterClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())[CourseReaderViewModel::class.java]
+        val factory = ViewModelFactory.getInstance(requireActivity())
+        viewModel = ViewModelProvider(requireActivity(), factory)[CourseReaderViewModel::class.java]
         adapter = ModuleListAdapter(this)
         populateRecyclerView(viewModel.getModules())
     }
