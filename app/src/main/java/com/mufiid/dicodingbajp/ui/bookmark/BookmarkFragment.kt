@@ -16,9 +16,6 @@ import com.mufiid.dicodingbajp.databinding.FragmentBookmarkBinding
 import com.mufiid.dicodingbajp.utils.DataDummy
 import com.mufiid.dicodingbajp.viewmodel.ViewModelFactory
 
-/**
- * A simple [Fragment] subclass as the second destination in the navigation.
- */
 class BookmarkFragment : Fragment(), BookmarkFragmentCallback {
 
     lateinit var fragmentBookmarkBinding: FragmentBookmarkBinding
@@ -27,7 +24,6 @@ class BookmarkFragment : Fragment(), BookmarkFragmentCallback {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         fragmentBookmarkBinding =  FragmentBookmarkBinding.inflate(inflater, container, false)
         return fragmentBookmarkBinding.root
     }
@@ -37,10 +33,14 @@ class BookmarkFragment : Fragment(), BookmarkFragmentCallback {
         if(activity != null) {
             val factory = ViewModelFactory.getInstance(requireActivity())
             val viewModel = ViewModelProvider(this, factory)[BookmarkViewModel::class.java]
-
-            val courses = viewModel.getBookmark()
             val adapter = BookmarkAdapter(this)
-            adapter.setCourses(courses)
+
+            fragmentBookmarkBinding.progressBar.visibility = View.VISIBLE
+            viewModel.getBookmark().observe(viewLifecycleOwner, { courses ->
+                fragmentBookmarkBinding.progressBar.visibility = View.GONE
+                adapter.setCourses(courses)
+                adapter.notifyDataSetChanged()
+            })
 
             with(fragmentBookmarkBinding.rvBookmark) {
                 layoutManager = LinearLayoutManager(context)
