@@ -1,12 +1,16 @@
 package com.mufiid.dicodingbajp.ui.academy
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.mufiid.dicodingbajp.data.CourseEntity
 import com.mufiid.dicodingbajp.data.source.AcademyRepository
 import com.mufiid.dicodingbajp.utils.DataDummy
-import org.junit.Test
-
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
@@ -18,8 +22,14 @@ class AcademyViewModelTest {
 
     private lateinit var viewModel: AcademyViewModel
 
+    @get:Rule
+    var instantTastExecutorRule = InstantTaskExecutorRule()
+
     @Mock
     private lateinit var academyRepository: AcademyRepository
+
+    @Mock
+    private lateinit var observer: Observer<List<CourseEntity>>
 
     @Before
     fun init() {
@@ -28,10 +38,17 @@ class AcademyViewModelTest {
 
     @Test
     fun getCourse() {
-        `when`(academyRepository.getAllCourses()).thenReturn(DataDummy.generateDummyCourses() as ArrayList<CourseEntity>)
-        val courseEntities = viewModel.getCourse()
+        val dummyCourses = DataDummy.generateDummyCourses()
+        val courses = MutableLiveData<List<CourseEntity>>()
+        courses.value = dummyCourses
+
+        `when`(academyRepository.getAllCourses()).thenReturn(courses)
+        val courseEntities = viewModel.getCourse().value
         verify<AcademyRepository>(academyRepository).getAllCourses()
         assertNotNull(courseEntities)
-        assertEquals(5, courseEntities.size)
+        assertEquals(5, courseEntities?.size)
+
+        viewModel.getCourse().observeForever(observer)
+        verify(observer).onChanged(dummyCourses)
     }
 }
