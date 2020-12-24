@@ -23,7 +23,7 @@ class AcademyViewModelTest {
     private lateinit var viewModel: AcademyViewModel
 
     @get:Rule
-    var instantTastExecutorRule = InstantTaskExecutorRule()
+    var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Mock
     private lateinit var academyRepository: AcademyRepository
@@ -44,7 +44,7 @@ class AcademyViewModelTest {
 
         `when`(academyRepository.getAllCourses()).thenReturn(courses)
         val courseEntities = viewModel.getCourse().value
-        verify<AcademyRepository>(academyRepository).getAllCourses()
+        verify(academyRepository).getAllCourses()
         assertNotNull(courseEntities)
         assertEquals(5, courseEntities?.size)
 
