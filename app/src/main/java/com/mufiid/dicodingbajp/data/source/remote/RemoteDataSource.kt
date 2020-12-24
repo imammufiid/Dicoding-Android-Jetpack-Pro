@@ -5,6 +5,7 @@ import android.os.Looper
 import com.mufiid.dicodingbajp.data.source.remote.response.ContentResponse
 import com.mufiid.dicodingbajp.data.source.remote.response.CourseResponse
 import com.mufiid.dicodingbajp.data.source.remote.response.ModuleResponse
+import com.mufiid.dicodingbajp.utils.EspressoIdlingResource
 import com.mufiid.dicodingbajp.utils.JsonHelper
 
 class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
@@ -23,21 +24,27 @@ class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
     }
 
     fun getAllCourses(callback: LoadCoursesCallback){
+        EspressoIdlingResource.increment()
         handler.postDelayed({
             callback.onAllCoursesReceived(jsonHelper.loadCourses())
+            EspressoIdlingResource.decrement()
         }, SERVICE_LATENCY_IN_MILLIS)
 
     }
 
     fun getModules(courseId: String, callback: LoadModulesCallback){
+        EspressoIdlingResource.increment()
         handler.postDelayed({
             callback.onAllModulesReceived(jsonHelper.loadModule(courseId))
+            EspressoIdlingResource.decrement()
         }, SERVICE_LATENCY_IN_MILLIS)
     }
 
     fun getContent(moduleId: String, callback: LoadContentCallback){
+        EspressoIdlingResource.increment()
         handler.postDelayed({
             callback.onContentReceived(jsonHelper.loadContent(moduleId))
+            EspressoIdlingResource.decrement()
         }, SERVICE_LATENCY_IN_MILLIS)
     }
 
