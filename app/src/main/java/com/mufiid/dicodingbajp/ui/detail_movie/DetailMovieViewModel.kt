@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.mufiid.dicodingbajp.data.MovieEntity
 import com.mufiid.dicodingbajp.data.source.MovieRepository
-import com.mufiid.dicodingbajp.utils.DataDummy
 
 class DetailMovieViewModel(private val movieRepository: MovieRepository) : ViewModel() {
     private lateinit var movieId: String
