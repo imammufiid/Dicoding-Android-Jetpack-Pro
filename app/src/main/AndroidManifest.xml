@@ -13,9 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".SplashScreenActivity">
-
-        </activity>
         <activity
             android:name=".ui.detail_movie.DetailMovieActivity"
             android:label="@string/title_activity_detail"
