@@ -56,6 +56,8 @@ class HomeActivityTest {
         onView(withId(R.id.text_title)).check(matches(withText(dummyMovie[0].title)))
         onView(withId(R.id.text_date)).check(matches(isDisplayed()))
         onView(withId(R.id.text_date)).check(matches(withText("Tanggal Rilis : ${dummyMovie[0].releaseDate}")))
+        onView(withId(R.id.text_description)).check(matches(isDisplayed()))
+        onView(withId(R.id.text_description)).check(matches(withText(dummyMovie[0].description)))
     }
 
     @Test
@@ -83,6 +85,8 @@ class HomeActivityTest {
         onView(withId(R.id.text_title)).check(matches(withText(dummyTvShow[0].title)))
         onView(withId(R.id.text_date)).check(matches(isDisplayed()))
         onView(withId(R.id.text_date)).check(matches(withText("Tanggal Rilis : ${dummyTvShow[0].releaseDate}")))
+        onView(withId(R.id.text_description)).check(matches(isDisplayed()))
+        onView(withId(R.id.text_description)).check(matches(withText(dummyTvShow[0].description)))
     }
 
 }
