@@ -8,7 +8,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.mufiid.dicodingbajp.R
 import com.mufiid.dicodingbajp.data.MovieEntity
-import com.mufiid.dicodingbajp.data.TvShowEntity
 import com.mufiid.dicodingbajp.databinding.ItemsMovieBinding
 import com.mufiid.dicodingbajp.ui.detail_movie.DetailMovieActivity
 
@@ -35,7 +34,7 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     private var listMovie = ArrayList<MovieEntity>()
 
     fun setMovie(movie: List<MovieEntity>?) {
-        if(movie == null) return
+        if(movie.isNullOrEmpty()) return
         this.listMovie.clear()
         this.listMovie.addAll(movie)
     }
