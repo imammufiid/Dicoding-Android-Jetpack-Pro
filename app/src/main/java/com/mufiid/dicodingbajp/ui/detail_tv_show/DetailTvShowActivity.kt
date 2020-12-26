@@ -1,12 +1,15 @@
 package com.mufiid.dicodingbajp.ui.detail_tv_show
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.mufiid.dicodingbajp.R
+import com.mufiid.dicodingbajp.viewmodel.ViewModelFactory
 import com.mufiid.dicodingbajp.data.TvShowEntity
 import com.mufiid.dicodingbajp.databinding.ActivityDetailTvShowBinding
 import com.mufiid.dicodingbajp.databinding.ContentDetailBinding
@@ -28,16 +31,23 @@ class DetailTvShowActivity : AppCompatActivity() {
         setSupportActionBar(activityDetailTvShowBinding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailTvShowViewModel::class.java]
+        val factory = ViewModelFactory.getInstance(this)
+        val viewModel = ViewModelProvider(this, factory)[DetailTvShowViewModel::class.java]
 
 
         val extras = intent.extras
         if(extras != null) {
             val tvShowId = extras.getString(EXTRA_TV_SHOW)
             if(tvShowId != null) {
-                viewModel.setSelectedTvShow(tvShowId)
-                populateTvShow(viewModel.getTvShow())
+                activityDetailTvShowBinding.progressBar.visibility = View.VISIBLE
+                activityDetailTvShowBinding.content.visibility = View.INVISIBLE
 
+                viewModel.setSelectedTvShow(tvShowId)
+                viewModel.getTvShow().observe(this, Observer {
+                    activityDetailTvShowBinding.progressBar.visibility = View.INVISIBLE
+                    activityDetailTvShowBinding.content.visibility = View.VISIBLE
+                    populateTvShow(it)
+                })
             }
         }
 
