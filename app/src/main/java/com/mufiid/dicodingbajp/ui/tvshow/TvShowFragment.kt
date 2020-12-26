@@ -22,7 +22,6 @@ class TvShowFragment : Fragment(), TvShowFragmentCallback {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         fragmentBookmarkBinding = FragmentTvShowBinding.inflate(inflater, container, false)
         return fragmentBookmarkBinding.root
     }
@@ -36,7 +35,7 @@ class TvShowFragment : Fragment(), TvShowFragmentCallback {
             val adapter = TvShowAdapter(this)
 
             fragmentBookmarkBinding.progressBar.visibility = View.VISIBLE
-            viewModel.getTvShow().observe(this, Observer {
+            viewModel.getTvShow().observe(viewLifecycleOwner, Observer {
                 fragmentBookmarkBinding.progressBar.visibility = View.GONE
                 adapter.setTvShow(it)
                 adapter.notifyDataSetChanged()
@@ -56,8 +55,8 @@ class TvShowFragment : Fragment(), TvShowFragmentCallback {
             ShareCompat.IntentBuilder
                 .from(requireActivity())
                 .setText(mimeType)
-                .setChooserTitle("Bagikan aplikasi ini sekarang.")
-                .setText(resources.getString(R.string.share_text, tvShow.title))
+                .setChooserTitle(getString(R.string.share_now))
+                .setText(getString(R.string.share_text))
                 .startChooser()
         }
     }
