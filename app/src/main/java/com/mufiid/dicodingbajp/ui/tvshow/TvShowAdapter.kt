@@ -36,7 +36,7 @@ class TvShowAdapter(private val callback: TvShowFragmentCallback): RecyclerView.
 
     private val listCourses = ArrayList<TvShowEntity>()
 
-    fun setCourses(tvShow: List<TvShowEntity>?) {
+    fun setTvShow(tvShow: List<TvShowEntity>?) {
         if(tvShow == null)  return
         this.listCourses.clear()
         this.listCourses.addAll(tvShow)
