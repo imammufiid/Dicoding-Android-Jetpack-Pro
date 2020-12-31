@@ -3,7 +3,7 @@ package com.mufiid.dicodingbajp.ui.bookmark
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.mufiid.dicodingbajp.data.CourseEntity
+import com.mufiid.dicodingbajp.data.source.local.entity.CourseEntity
 import com.mufiid.dicodingbajp.data.source.AcademyRepository
 import com.mufiid.dicodingbajp.utils.DataDummy
 import com.nhaarman.mockitokotlin2.verify

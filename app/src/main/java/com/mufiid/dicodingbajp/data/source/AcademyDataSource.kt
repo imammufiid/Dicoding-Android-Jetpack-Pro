@@ -1,8 +1,8 @@
 package com.mufiid.dicodingbajp.data.source
 
 import androidx.lifecycle.LiveData
-import com.mufiid.dicodingbajp.data.CourseEntity
-import com.mufiid.dicodingbajp.data.ModuleEntity
+import com.mufiid.dicodingbajp.data.source.local.entity.CourseEntity
+import com.mufiid.dicodingbajp.data.source.local.entity.ModuleEntity
 
 interface AcademyDataSource {
     fun getAllCourses(): LiveData<List<CourseEntity>>

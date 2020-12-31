@@ -3,8 +3,8 @@ package com.mufiid.dicodingbajp.ui.reader
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.mufiid.dicodingbajp.data.ContentEntity
-import com.mufiid.dicodingbajp.data.ModuleEntity
+import com.mufiid.dicodingbajp.data.source.local.entity.ContentEntity
+import com.mufiid.dicodingbajp.data.source.local.entity.ModuleEntity
 import com.mufiid.dicodingbajp.data.source.AcademyRepository
 import com.mufiid.dicodingbajp.utils.DataDummy
 import org.junit.Test

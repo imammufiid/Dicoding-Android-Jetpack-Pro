@@ -2,9 +2,9 @@ package com.mufiid.dicodingbajp.data.source
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.mufiid.dicodingbajp.data.ContentEntity
-import com.mufiid.dicodingbajp.data.CourseEntity
-import com.mufiid.dicodingbajp.data.ModuleEntity
+import com.mufiid.dicodingbajp.data.source.local.entity.ContentEntity
+import com.mufiid.dicodingbajp.data.source.local.entity.CourseEntity
+import com.mufiid.dicodingbajp.data.source.local.entity.ModuleEntity
 import com.mufiid.dicodingbajp.data.source.remote.RemoteDataSource
 import com.mufiid.dicodingbajp.data.source.remote.response.ContentResponse
 import com.mufiid.dicodingbajp.data.source.remote.response.CourseResponse

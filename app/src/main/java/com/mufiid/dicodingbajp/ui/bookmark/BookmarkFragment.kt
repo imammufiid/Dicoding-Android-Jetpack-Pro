@@ -5,15 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.core.app.ShareCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mufiid.dicodingbajp.R
-import com.mufiid.dicodingbajp.data.CourseEntity
+import com.mufiid.dicodingbajp.data.source.local.entity.CourseEntity
 import com.mufiid.dicodingbajp.databinding.FragmentBookmarkBinding
-import com.mufiid.dicodingbajp.utils.DataDummy
 import com.mufiid.dicodingbajp.viewmodel.ViewModelFactory
 
 class BookmarkFragment : Fragment(), BookmarkFragmentCallback {

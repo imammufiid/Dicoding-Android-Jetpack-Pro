@@ -24,19 +24,19 @@ class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
     }
 
     fun getAllCourses(callback: LoadCoursesCallback){
-        EspressoIdlingResource.increment()
+//        EspressoIdlingResource.increment()
         handler.postDelayed({
             callback.onAllCoursesReceived(jsonHelper.loadCourses())
-            EspressoIdlingResource.decrement()
+//            EspressoIdlingResource.decrement()
         }, SERVICE_LATENCY_IN_MILLIS)
 
     }
 
     fun getModules(courseId: String, callback: LoadModulesCallback){
-        EspressoIdlingResource.increment()
+//        EspressoIdlingResource.increment()
         handler.postDelayed({
             callback.onAllModulesReceived(jsonHelper.loadModule(courseId))
-            EspressoIdlingResource.decrement()
+//            EspressoIdlingResource.decrement()
         }, SERVICE_LATENCY_IN_MILLIS)
     }
 

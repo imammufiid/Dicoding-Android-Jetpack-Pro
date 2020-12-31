@@ -9,12 +9,11 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mufiid.dicodingbajp.data.ModuleEntity
+import com.mufiid.dicodingbajp.data.source.local.entity.ModuleEntity
 import com.mufiid.dicodingbajp.databinding.FragmentModuleListBinding
 import com.mufiid.dicodingbajp.ui.reader.CourseReaderActivity
 import com.mufiid.dicodingbajp.ui.reader.CourseReaderCallback
 import com.mufiid.dicodingbajp.ui.reader.CourseReaderViewModel
-import com.mufiid.dicodingbajp.utils.DataDummy
 import com.mufiid.dicodingbajp.viewmodel.ViewModelFactory
 
 

@@ -2,10 +2,8 @@ package com.mufiid.dicodingbajp.ui.reader
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.mufiid.dicodingbajp.data.ContentEntity
-import com.mufiid.dicodingbajp.data.ModuleEntity
+import com.mufiid.dicodingbajp.data.source.local.entity.ModuleEntity
 import com.mufiid.dicodingbajp.data.source.AcademyRepository
-import com.mufiid.dicodingbajp.utils.DataDummy
 
 class CourseReaderViewModel(private val academyRepository: AcademyRepository): ViewModel() {
 

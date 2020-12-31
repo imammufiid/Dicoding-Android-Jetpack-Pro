@@ -1,4 +1,4 @@
-package com.mufiid.dicodingbajp.data
+package com.mufiid.dicodingbajp.data.source.local.entity
 
 import androidx.room.ColumnInfo
 

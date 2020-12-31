@@ -3,8 +3,6 @@ package com.mufiid.dicodingbajp.ui.detail
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -13,11 +11,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.mufiid.dicodingbajp.R
-import com.mufiid.dicodingbajp.data.CourseEntity
+import com.mufiid.dicodingbajp.data.source.local.entity.CourseEntity
 import com.mufiid.dicodingbajp.databinding.ActivityDetailCourseBinding
 import com.mufiid.dicodingbajp.databinding.ContentDetailCourseBinding
 import com.mufiid.dicodingbajp.ui.reader.CourseReaderActivity
-import com.mufiid.dicodingbajp.utils.DataDummy
 import com.mufiid.dicodingbajp.viewmodel.ViewModelFactory
 
 class DetailCourseActivity : AppCompatActivity() {

@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.mufiid.dicodingbajp.R
-import com.mufiid.dicodingbajp.data.ContentEntity
-import com.mufiid.dicodingbajp.data.ModuleEntity
+import com.mufiid.dicodingbajp.data.source.local.entity.ModuleEntity
 import com.mufiid.dicodingbajp.databinding.FragmentModuleContentBinding
 import com.mufiid.dicodingbajp.ui.reader.CourseReaderViewModel
 import com.mufiid.dicodingbajp.viewmodel.ViewModelFactory
