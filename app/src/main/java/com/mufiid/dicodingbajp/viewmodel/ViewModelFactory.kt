@@ -3,7 +3,7 @@ package com.mufiid.dicodingbajp.viewmodel
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.mufiid.dicodingbajp.data.source.AcademyRepository
+import com.mufiid.dicodingbajp.data.AcademyRepository
 import com.mufiid.dicodingbajp.di.Injection
 import com.mufiid.dicodingbajp.ui.academy.AcademyViewModel
 import com.mufiid.dicodingbajp.ui.bookmark.BookmarkViewModel

@@ -1,4 +1,4 @@
-package com.mufiid.dicodingbajp.data.source
+package com.mufiid.dicodingbajp.data
 
 import androidx.lifecycle.LiveData
 import com.mufiid.dicodingbajp.data.source.local.entity.CourseEntity

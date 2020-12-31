@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.mufiid.dicodingbajp.data.source.local.entity.CourseEntity
-import com.mufiid.dicodingbajp.data.source.AcademyRepository
+import com.mufiid.dicodingbajp.data.AcademyRepository
 import com.mufiid.dicodingbajp.utils.DataDummy
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull

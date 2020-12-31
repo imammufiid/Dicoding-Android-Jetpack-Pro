@@ -1,7 +1,7 @@
 package com.mufiid.dicodingbajp.di
 
 import android.content.Context
-import com.mufiid.dicodingbajp.data.source.AcademyRepository
+import com.mufiid.dicodingbajp.data.AcademyRepository
 import com.mufiid.dicodingbajp.data.source.remote.RemoteDataSource
 import com.mufiid.dicodingbajp.utils.JsonHelper
 
