@@ -7,7 +7,7 @@ class NoteDiffCallback(private val mOldNoteList: List<Note>, private val mNewNot
     DiffUtil.Callback() {
     override fun getOldListSize(): Int = mOldNoteList.size
 
-    override fun getNewListSize(): Int = mOldNoteList.size
+    override fun getNewListSize(): Int = mNewNoteList.size
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         return mOldNoteList[oldItemPosition].id == mNewNoteList[newItemPosition].id
