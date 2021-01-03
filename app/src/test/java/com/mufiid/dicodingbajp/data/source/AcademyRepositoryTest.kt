@@ -1,27 +1,32 @@
 package com.mufiid.dicodingbajp.data.source
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.MutableLiveData
+import com.mufiid.dicodingbajp.data.source.local.LocalDataSource
+import com.mufiid.dicodingbajp.data.source.local.entity.CourseEntity
+import com.mufiid.dicodingbajp.data.source.local.entity.CourseWithModule
+import com.mufiid.dicodingbajp.data.source.local.entity.ModuleEntity
 import com.mufiid.dicodingbajp.data.source.remote.RemoteDataSource
+import com.mufiid.dicodingbajp.utils.AppExecutor
 import com.mufiid.dicodingbajp.utils.DataDummy
 import com.mufiid.dicodingbajp.utils.LiveDataTestUtils
 import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.doAnswer
 import com.nhaarman.mockitokotlin2.eq
 import org.junit.Test
 
 import org.junit.Assert.*
 import org.junit.Rule
-import org.mockito.Mockito
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.verify
+import org.mockito.Mockito.*
 
 class AcademyRepositoryTest {
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private val remote = Mockito.mock(RemoteDataSource::class.java)
-    private val academyRepository = FakeAcademyRepository(remote)
+    private val remote = mock(RemoteDataSource::class.java)
+    private val local = mock(LocalDataSource::class.java)
+    private val appExecutors = mock(AppExecutor::class.java)
+    private val academyRepository = FakeAcademyRepository(remote, local, appExecutors)
 
     private val courseResponses = DataDummy.generateRemoteDummyCourses()
     private val courseId = courseResponses[0].id
@@ -31,73 +36,63 @@ class AcademyRepositoryTest {
 
     @Test
     fun getAllCourses() {
-        doAnswer { invocation ->
-            (invocation.arguments[0] as RemoteDataSource.LoadCoursesCallback)
-                .onAllCoursesReceived(courseResponses)
-            null
-        }.`when`(remote).getAllCourses(any())
+        val dummyCourses = MutableLiveData<List<CourseEntity>>()
+        dummyCourses.value = DataDummy.generateDummyCourses()
+        `when`(local.getAllCourses()).thenReturn(dummyCourses)
+
+
         val courseEntities = LiveDataTestUtils.getValue(academyRepository.getAllCourses())
-        verify(remote).getAllCourses(any())
-        assertNotNull(courseEntities)
-        assertEquals(courseResponses.size.toLong(), courseEntities.size.toLong())
+        verify(local).getAllCourses()
+        assertNotNull(courseEntities.data)
+        assertEquals(courseResponses.size.toLong(), courseEntities.data?.size?.toLong())
     }
 
     @Test
     fun getBookmarkedCourses() {
-        doAnswer { invocation ->
-            (invocation.arguments[0] as RemoteDataSource.LoadCoursesCallback)
-                .onAllCoursesReceived(courseResponses)
-            null
-        }.`when`(remote).getAllCourses(any())
+        val dummyCourses = MutableLiveData<List<CourseEntity>>()
+        dummyCourses.value = DataDummy.generateDummyCourses()
+        `when`(local.getBookmarkedCourses()).thenReturn(dummyCourses)
+
         val courseEntities = LiveDataTestUtils.getValue(academyRepository.getBookmarkedCourses())
-        verify(remote).getAllCourses(any())
+        verify(local).getBookmarkedCourses()
         assertNotNull(courseEntities)
         assertEquals(courseResponses.size.toLong(), courseEntities.size.toLong())
     }
 
     @Test
-    fun getCourseWithModules() {
-        doAnswer { invocation ->
-            (invocation.arguments[0] as RemoteDataSource.LoadCoursesCallback)
-                .onAllCoursesReceived(courseResponses)
-            null
-        }.`when`(remote).getAllCourses(any())
-        val resultCourse = LiveDataTestUtils.getValue(academyRepository.getCourseWithModules(courseId))
-        verify(remote).getAllCourses(any())
-        assertNotNull(resultCourse)
-        assertEquals(courseResponses[0].title, resultCourse.title)
-    }
-
-    @Test
     fun getAllModulesByCourse() {
-        doAnswer { invocation ->
-            (invocation.arguments[1] as RemoteDataSource.LoadModulesCallback)
-                .onAllModulesReceived(moduleResponses)
-            null
-        }.`when`(remote).getModules(eq(courseId), any())
-        val moduleEntities = LiveDataTestUtils.getValue(academyRepository.getAllModulesByCourse(courseId))
-        verify(remote).getModules(eq(courseId), any())
-        assertNotNull(moduleEntities)
-        assertEquals(moduleResponses.size.toLong(), moduleEntities.size.toLong())
+        val dummyModules = MutableLiveData<List<ModuleEntity>>()
+        dummyModules.value = DataDummy.generateDummyModule(courseId)
+        `when`(local.getAllModuleByCourse(courseId)).thenReturn(dummyModules)
+
+        val courseEntities = LiveDataTestUtils.getValue(academyRepository.getAllModulesByCourse(courseId))
+        verify(local).getAllModuleByCourse(courseId)
+        assertNotNull(courseEntities)
+        assertEquals(moduleResponses.size.toLong(), courseEntities.data?.size?.toLong())
     }
 
     @Test
     fun getContent() {
-        doAnswer { invocation ->
-            (invocation.arguments[1] as RemoteDataSource.LoadModulesCallback)
-                .onAllModulesReceived(moduleResponses)
-            null
-        }.`when`(remote).getModules(eq(courseId), any())
+       val dummyEntity = MutableLiveData<ModuleEntity>()
+        dummyEntity.value = DataDummy.generateDummyModuleWithContent(moduleId)
+        `when`(local.getModuleWithContent(courseId)).thenReturn(dummyEntity)
 
-        doAnswer { invocation ->
-            (invocation.arguments[1] as RemoteDataSource.LoadContentCallback)
-                .onContentReceived(content)
-            null
-        }.`when`(remote).getContent(eq(moduleId), any())
-        val resultModule = LiveDataTestUtils.getValue(academyRepository.getContent(courseId, moduleId))
-        verify(remote).getModules(eq(courseId), any())
-        verify(remote).getContent(eq(moduleId), any())
-        assertNotNull(resultModule)
-        assertEquals(content.content, resultModule.contentEntity?.content)
+        val courseEntityContent = LiveDataTestUtils.getValue(academyRepository.getContent(courseId))
+        verify(local).getModuleWithContent(courseId)
+        assertNotNull(courseEntityContent)
+        assertEquals(content.content, courseEntityContent.data?.contentEntity?.content)
+    }
+
+    @Test
+    fun getCourseWithModule() {
+        val dummyEntity = MutableLiveData<CourseWithModule>()
+        dummyEntity.value = DataDummy.generateDummyCourseWithModules(DataDummy.generateDummyCourses()[0], false)
+        `when`(local.getCourseWithModules(courseId)).thenReturn(dummyEntity)
+
+        val courseEntities = LiveDataTestUtils.getValue(academyRepository.getCourseWithModules(courseId))
+        verify(local).getCourseWithModules(courseId)
+        assertNotNull(courseEntities.data)
+        assertNotNull(courseEntities.data?.mCourse?.title)
+        assertEquals(courseResponses[0].title, courseEntities.data?.mCourse?.title)
     }
 }
