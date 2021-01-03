@@ -15,7 +15,7 @@ import com.mufiid.dicodingbajp.viewmodel.ViewModelFactory
 
 class BookmarkFragment : Fragment(), BookmarkFragmentCallback {
 
-    lateinit var fragmentBookmarkBinding: FragmentBookmarkBinding
+    private lateinit var fragmentBookmarkBinding: FragmentBookmarkBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
