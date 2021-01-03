@@ -20,6 +20,18 @@ interface AcademyDao {
     fun getCourseWithModuleById(courseId: String): LiveData<CourseWithModule>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertCourses(courses: List<CourseEntity>)
+
+    @Update
+    fun updateCourse(course: CourseEntity)
+
+    @Query("SELECT * FROM moduleentities WHERE courseId = :courseId")
+    fun getModulesByCourseId(courseId: String): LiveData<List<ModuleEntity>>
+
+    @Query("SELECT * FROM moduleentities WHERE moduleId = :moduleId")
+    fun getModuleById(moduleId: String): LiveData<ModuleEntity>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertModules(module: List<ModuleEntity>)
 
     @Update
