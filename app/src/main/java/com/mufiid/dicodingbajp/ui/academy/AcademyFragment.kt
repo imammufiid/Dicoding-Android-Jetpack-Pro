@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +14,7 @@ import com.mufiid.dicodingbajp.R
 import com.mufiid.dicodingbajp.databinding.FragmentAcademyBinding
 import com.mufiid.dicodingbajp.utils.DataDummy
 import com.mufiid.dicodingbajp.viewmodel.ViewModelFactory
+import com.mufiid.dicodingbajp.vo.Status
 
 class AcademyFragment : Fragment() {
 
@@ -34,11 +36,21 @@ class AcademyFragment : Fragment() {
             val viewModel = ViewModelProvider(this, factory)[AcademyViewModel::class.java]
 
             val academyAdapter = AcademyAdapter()
-            fragmentAcademyBinding.progressBar.visibility = View.VISIBLE
-            viewModel.getCourse().observe(viewLifecycleOwner, { courses ->
-                fragmentAcademyBinding.progressBar.visibility = View.GONE
-                academyAdapter.setCourses(courses)
-                academyAdapter.notifyDataSetChanged()
+            viewModel.getCourse().observe(viewLifecycleOwner, { course ->
+                if(course != null) {
+                    when (course.status) {
+                        Status.LOADING -> fragmentAcademyBinding.progressBar.visibility = View.VISIBLE
+                        Status.SUCCESS -> {
+                            fragmentAcademyBinding.progressBar.visibility = View.GONE
+                            academyAdapter.setCourses(course.data)
+                            academyAdapter.notifyDataSetChanged()
+                        }
+                        Status.ERROR -> {
+                            fragmentAcademyBinding.progressBar.visibility = View.GONE
+                            Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
             })
 
             with(fragmentAcademyBinding.rvAcademy) {
