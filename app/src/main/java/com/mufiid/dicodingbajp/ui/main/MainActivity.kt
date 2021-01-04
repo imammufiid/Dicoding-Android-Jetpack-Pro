@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.mufiid.dicodingbajp.R
@@ -18,7 +19,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var _activityMainBinding: ActivityMainBinding? = null
     private val binding get() = _activityMainBinding
     private lateinit var viewModel: MainViewModel
-    private lateinit var adapter: NoteAdapter
+    private lateinit var adapter: NotePagedListAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -27,7 +29,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         viewModel = obtainViewModel(this@MainActivity)
 
-        adapter = NoteAdapter(this@MainActivity)
+        adapter = NotePagedListAdapter(this@MainActivity)
         setRecyclerView()
         init()
 
@@ -42,9 +44,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding?.fabAdd?.setOnClickListener(this)
     }
 
-    private val noteObserve = Observer<List<Note>> {
+    private val noteObserve = Observer<PagedList<Note>> {
         if(it != null) {
-            adapter.setListNotes(it)
+            adapter.submitList(it)
         }
     }
 
