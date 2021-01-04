@@ -3,6 +3,8 @@ package com.mufiid.dicodingbajp.ui.main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -12,6 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.mufiid.dicodingbajp.R
 import com.mufiid.dicodingbajp.data.source.local.entity.Note
 import com.mufiid.dicodingbajp.databinding.ActivityMainBinding
+import com.mufiid.dicodingbajp.helper.SortUtils
 import com.mufiid.dicodingbajp.helper.ViewModelFactory
 import com.mufiid.dicodingbajp.ui.insert.NoteAddUpdateActivity
 
@@ -37,7 +40,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getAllNotes().observe(this, noteObserve)
+        viewModel.getAllNotes(SortUtils.NEWEST).observe(this, noteObserve)
     }
 
     private fun init() {
@@ -96,5 +99,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         Snackbar.make(binding?.root as View, message, Snackbar.LENGTH_SHORT).show()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        var sort = ""
+        when(item.itemId) {
+            R.id.action_newest -> sort = SortUtils.NEWEST
+            R.id.action_oldest -> sort = SortUtils.OLDEST
+            R.id.action_random ->sort = SortUtils.RANDOM
+        }
+        viewModel.getAllNotes(sort).observe(this, noteObserve)
+        item.isChecked = true
+        return super.onOptionsItemSelected(item)
+    }
 
 }
